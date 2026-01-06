@@ -1,18 +1,42 @@
 import { useState } from "react";
+import supabase from "../supabase";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateBlog() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async () => {
     // console.log(title, description);
-    if (title === "" || description === "") {
+    if (!title || !description) {
       setError(true);
       return;
     }
-
     setError(false);
+    setLoading(true);
+
+    const { data, error: supabaseError } = await supabase
+      .from("blogs")
+      .insert({ title, description })
+      .select();
+
+    setLoading(false);
+
+    if (data) {
+      setTitle("");
+      setDescription("");
+      setError(false);
+      navigate("/");
+    }
+
+    if (supabaseError) {
+      setError(true);
+      return;
+    }
   };
 
   return (
@@ -41,8 +65,8 @@ export default function CreateBlog() {
         </p>
       )}
 
-      <button onClick={handleSubmit} className="save-btn">
-        Save Blog
+      <button disabled={loading} onClick={handleSubmit} className="save-btn">
+        {loading ? "Saving..." : "Save Blog"}
       </button>
     </div>
   );

@@ -22,7 +22,7 @@ export default function App() {
       }
     };
     getBlogs();
-  }, []);
+  }, [blogs]);
 
   return (
     <BrowserRouter>
@@ -37,7 +37,7 @@ export default function App() {
       </header>
 
       <Routes>
-        <Route path="/" element={<Blogs blogs={blogs} setBlogs={setBlogs}/>} />
+        <Route path="/" element={<Blogs blogs={blogs} setBlogs={setBlogs} />} />
         <Route path="/create" element={<CreateBlog />} />
         <Route path="/edit/:id" element={<EditBlog />} />
       </Routes>
