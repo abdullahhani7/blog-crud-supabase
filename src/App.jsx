@@ -10,19 +10,20 @@ export default function App() {
 
   const [blogs, setBlogs] = useState([]);
 
+  const getBlogs = async () => {
+    const { data, error } = await supabase.from("blogs").select();
+    // console.log(data);
+    if (error) {
+      return console.log(error);
+    }
+    if (data) {
+      setBlogs(data);
+    }
+  };
+
   useEffect(() => {
-    const getBlogs = async () => {
-      const { data, error } = await supabase.from("blogs").select();
-      // console.log(data);
-      if (error) {
-        return console.log(error);
-      }
-      if (data) {
-        setBlogs(data);
-      }
-    };
     getBlogs();
-  }, [blogs]);
+  }, []);
 
   return (
     <BrowserRouter>
@@ -37,8 +38,8 @@ export default function App() {
       </header>
 
       <Routes>
-        <Route path="/" element={<Blogs blogs={blogs} />} />
-        <Route path="/create" element={<CreateBlog />} />
+        <Route path="/" element={<Blogs blogs={blogs} getBlogs={getBlogs} />} />
+        <Route path="/create" element={<CreateBlog getBlogs={getBlogs} />} />
         <Route path="/edit/:id" element={<EditBlog />} />
       </Routes>
     </BrowserRouter>

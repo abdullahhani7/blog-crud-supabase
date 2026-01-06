@@ -2,7 +2,7 @@ import { useState } from "react";
 import supabase from "../supabase";
 import { useNavigate } from "react-router-dom";
 
-export default function CreateBlog() {
+export default function CreateBlog({ getBlogs }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [error, setError] = useState(false);
@@ -28,7 +28,7 @@ export default function CreateBlog() {
 
     if (data) {
       // console.log('data',data);
-      
+
       setTitle("");
       setDescription("");
       setError(false);
@@ -39,6 +39,7 @@ export default function CreateBlog() {
       setError(true);
       return;
     }
+    getBlogs();
   };
 
   return (

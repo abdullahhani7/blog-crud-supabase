@@ -1,7 +1,7 @@
 import BlogCard from "../components/BlogCard";
 import supabase from "../supabase";
 
-export default function Blogs({ blogs }) {
+export default function Blogs({ blogs, getBlogs }) {
   // const [blogs, setBlogs] = useState([
   //   { id: 1, title: "Blog 1", description: "Lorem ipsum dolor sit amet" },
   //   { id: 2, title: "Blog 2", description: "Lorem ipsum dolor sit amet" },
@@ -17,6 +17,7 @@ export default function Blogs({ blogs }) {
     } else {
       console.log("success");
     }
+    getBlogs();
   };
 
   return (
