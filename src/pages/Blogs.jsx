@@ -1,14 +1,22 @@
 import BlogCard from "../components/BlogCard";
+import supabase from "../supabase";
 
-export default function Blogs({ blogs, setBlogs }) {
+export default function Blogs({ blogs }) {
   // const [blogs, setBlogs] = useState([
   //   { id: 1, title: "Blog 1", description: "Lorem ipsum dolor sit amet" },
   //   { id: 2, title: "Blog 2", description: "Lorem ipsum dolor sit amet" },
   //   { id: 3, title: "Blog 3", description: "Lorem ipsum dolor sit amet" },
   // ]);
 
-  const deleteBlog = (id) => {
-    setBlogs(blogs.filter((b) => b.id !== id));
+  const deleteBlog = async (id) => {
+    // setBlogs(blogs.filter((b) => b.id !== id));
+    const { error } = await supabase.from("blogs").delete().eq("id", id);
+    // console.log(response);
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("success");
+    }
   };
 
   return (

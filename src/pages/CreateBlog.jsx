@@ -27,6 +27,8 @@ export default function CreateBlog() {
     setLoading(false);
 
     if (data) {
+      // console.log('data',data);
+      
       setTitle("");
       setDescription("");
       setError(false);
