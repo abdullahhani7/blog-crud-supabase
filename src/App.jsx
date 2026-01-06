@@ -14,7 +14,7 @@ export default function App() {
     const { data, error } = await supabase.from("blogs").select();
     // console.log(data);
     if (error) {
-      return console.log(error);
+      console.log(error);
     }
     if (data) {
       setBlogs(data);
@@ -40,7 +40,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Blogs blogs={blogs} getBlogs={getBlogs} />} />
         <Route path="/create" element={<CreateBlog getBlogs={getBlogs} />} />
-        <Route path="/edit/:id" element={<EditBlog />} />
+        <Route path="/edit/:id" element={<EditBlog getBlogs={getBlogs} />} />
       </Routes>
     </BrowserRouter>
   );

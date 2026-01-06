@@ -20,12 +20,17 @@ export default function Blogs({ blogs, getBlogs }) {
     getBlogs();
   };
 
+  console.log(blogs);
+
   return (
     <div className="blogs-container">
-      {blogs &&
+      {blogs.length === 0 ? (
+        <p>No blogs yet.</p>
+      ) : (
         blogs.map((blog) => (
           <BlogCard key={blog.id} blog={blog} onDelete={deleteBlog} />
-        ))}
+        ))
+      )}
     </div>
   );
 }
